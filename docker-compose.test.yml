@@ -1,0 +1,12 @@
+# Isolated test stack:
+#   docker compose -p google-cloud-visual-project-test -f docker-compose.yml -f docker-compose.test.yml up -d --build
+# Renames the container, publishes the UI on 127.0.0.1:3917 and keeps it off tunnel-net, so it never
+# clashes with the app that is live in the tunnel.
+services:
+  frontend:
+    container_name: gcp-lab-test-frontend
+    ports: !override
+      - "127.0.0.1:3917:80"
+    restart: "no"
+    networks: !override
+      - default
